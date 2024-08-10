@@ -9,4 +9,5 @@ A user could see their high score in the ‘Leaderboard’ section.
 
 
 Concepts applied: iteration, persistence, data structures.
+
 Graphical User Interface used: Tkinter.

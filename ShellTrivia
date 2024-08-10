@@ -1,0 +1,1008 @@
+# GUI (Tkinter) Setup
+
+import tkinter as tk
+from tkinter import messagebox
+from ttkbootstrap import Style
+
+# Full Quiz Data, arranged in respective levels and categories
+quiz_data = {
+    # Category: Music
+    "Music": {
+        # Level 1 Music Questions
+        1: [
+            {
+                "question": "Who composed the Ghana National Anthem?",
+                "choices": [
+                    "Philip Gbeho",
+                    "Abrantie Amakye Dede",
+                    "Theodosia Okoh",
+                    "Kuami Eugene",
+                ],
+                "answer": "Philip Gbeho",
+            },
+            {
+                "question": "What does the popular acronym ‘RnB’ originally stand for?",
+                "choices": [
+                    "Rhythm and Blues",
+                    "Rain and Boots",
+                    "Rhythm and Books",
+                    "Rhythm and Boons",
+                ],
+                "answer": "Rhythm and Blues",
+            },
+            {
+                "question": "Who won the Best International Act at the 2024 BET Awards?",
+                "choices": ["Asake", "Tyla", "Cecilia Marfo", "Ayra Starr"],
+                "answer": "Tyla",
+            },
+            {
+                "question": "In 2012, (s)he died from drug-related accidental drowning",
+                "choices": [
+                    "Brian Jones",
+                    "Jim Hodder",
+                    "Whitney Houston",
+                    "Dennis Wilson",
+                ],
+                "answer": "Whitney Houston",
+            },
+            {
+                "question": "Which of the following artists took home the “Artiste of the Year” title at the 2024 Telecel Ghana Music Awards?",
+                "choices": [
+                    "Piesie Esther",
+                    "King Promise",
+                    "Stonebwoy",
+                    "Black Sheriff",
+                ],
+                "answer": "Stonebwoy",
+            },
+        ],
+        # Level 2 Music Questions
+        2: [
+            {
+                "question": "One of the music duos below is a parent-child pair.",
+                "choices": [
+                    "Trini Lopez & Jennifer Lopez",
+                    "Paul Simon & Carly Simon",
+                    "Billy Ray Cyrus & Miley Cyrus",
+                    "Alan Jackson & Michael Jackson",
+                ],
+                "answer": "Billy Ray Cyrus & Miley Cyrus",
+            },
+            {
+                "question": "I was nicknamed ‘King of Pop’",
+                "choices": [
+                    "Drake",
+                    "Justin Timberlake",
+                    "Michael Jackson",
+                    "The Weeknd",
+                ],
+                "answer": "Michael Jackson",
+            },
+            {
+                "question": "Which of the following is not a song by Joe Mettle?",
+                "choices": [
+                    "Kadosh",
+                    "My Everything",
+                    "Give Me Oil",
+                    "See What the Lord has done",
+                ],
+                "answer": "See What the Lord has done",
+            },
+            {
+                "question": "One of the following musicians is of Ghanaian descent.",
+                "choices": ["Beyonce", "Tyla", "Memphis DePay", "Vic Mensa"],
+                "answer": "Vic Mensa",
+            },
+            {
+                "question": "I am popularly known as ‘Stevie Wonder’",
+                "choices": [
+                    "Stevland Hardaway Morris",
+                    "Steven Jones Williams",
+                    "Steven Jackson",
+                    "Stevland Joshua Hathaway",
+                ],
+                "answer": "Stevland Hardaway Morris",
+            },
+        ],
+        # Level 3 Music Questions
+        3: [
+            {
+                "question": "I currently have 5 Grammy awards. I am West African. I am a woman. I have a song collaboration with a Ghanaian artiste. Who am I?",
+                "choices": ["Miriam Makeba", "Angelique Kidjo", "Asa", "MzVee"],
+                "answer": "Angelique Kidjo",
+            },
+            {
+                "question": "Who was the first African to win a Grammy?",
+                "choices": [
+                    "Miriam Makeba",
+                    "Angelique Kidjo",
+                    "Fela Kuti",
+                    "Pat Thoma",
+                ],
+                "answer": "Miriam Makeba",
+            },
+            {
+                "question": "I am known as “The Golden Voice” of Ghana.",
+                "choices": ["Amakye Dede", "Daddy Lumba", "Gyakie", "Pat Thomas"],
+                "answer": "Pat Thomas",
+            },
+            {
+                "question": "Who won the Artiste of the Year award at the Vodafone Ghana Music Awards 2022?",
+                "choices": ["Sarkodie", "Shatta Wale", "Stonebwoy", "Diana Hamilton"],
+                "answer": "Diana Hamilton",
+            },
+            {
+                "question": "I am known for my ‘Pulele’ hit song.",
+                "choices": [
+                    "Kuami Eugene",
+                    "Amakye Dede",
+                    "Okomfo Kwaade",
+                    "Terry Bonchaka",
+                ],
+                "answer": "Terry Bonchaka",
+            },
+        ],
+        # Level 4 Music Questions
+        4: [
+            {
+                "question": "What is the real name of the rapper known as Snoop Dogg?",
+                "choices": [
+                    "Cordozar Calvin Broadus, Jr",
+                    "Charles Sykes",
+                    "Curtis Jackson III",
+                    "Rakim Mayers",
+                ],
+                "answer": "Cordozar Calvin Broadus, Jr",
+            },
+            {
+                "question": "What instrument did Louis Armstrong play?",
+                "choices": ["Trumpet", "Saxophone", "Violin", "Guitar"],
+                "answer": "Trumpet",
+            },
+            {
+                "question": "Which year did Elvis Presley die?",
+                "choices": ["1977", "1985", "1934", "1999"],
+                "answer": "1977",
+            },
+            {
+                "question": "The hit songs 'Jolene' and 'I Will Always Love You' were written by?",
+                "choices": ["Madonna", "Lady Gaga", "Dolly Parton", "Celine Dion"],
+                "answer": "Dolly Parton",
+            },
+            {
+                "question": "I was born on February 6, 1945.",
+                "choices": ["Lauryn Hill", "Lucky Dube", "Bob Marley", "Bob Morley"],
+                "answer": "Bob Marley",
+            },
+        ],
+    },
+    # Category: Sports
+    "Sports": {
+        # Level 1 Sports Questions
+        1: [
+            {
+                "question": "Which country hosted the 2024 Olympic Games?",
+                "choices": ["Togo", "Benin", "France", "Ivory Coast"],
+                "answer": "France",
+            },
+            {
+                "question": "The Olympics are held every how many years?",
+                "choices": ["1 year", "0.5 years", "10 years", "4 years"],
+                "answer": "4 years",
+            },
+            {
+                "question": "What does the NBA stand for?",
+                "choices": [
+                    "National Bakers and Astronauts",
+                    "National Basketball Association",
+                    "Nightingales, Beavers and Ants",
+                    "Never Broke Again",
+                ],
+                "answer": "National Basketball Association",
+            },
+            {
+                "question": "What sporting equipment is used for striking a tennis ball?",
+                "choices": [
+                    "Tennis pan",
+                    "Tennis racquet",
+                    "Tennis stick",
+                    "Tennis rod",
+                ],
+                "answer": "Tennis racquet",
+            },
+            {
+                "question": "Which of the following sports does not use a ball?",
+                "choices": ["Golf", "tennis", "hockey", "polo"],
+                "answer": "hockey",
+            },
+        ],
+        # Level 2 Sports Questions
+        2: [
+            {
+                "question": "What team owns the longest winning streak in NBA history?",
+                "choices": [
+                    "Chicago Bulls",
+                    "Los Angeles Lakers",
+                    "Celtics",
+                    "Golden State Warriors",
+                ],
+                "answer": "Los Angeles Lakers",
+            },
+            {
+                "question": "What African country was the first ever to qualify for a World Cup?",
+                "choices": ["Senegal", "Egypt", "Saudi Arabia", "Ivory Coast"],
+                "answer": "Egypt",
+            },
+            {
+                "question": "What do the rings in the Olympics represent?",
+                "choices": [
+                    "Entanglements",
+                    "Sports balls",
+                    "The continents of the world",
+                    "Footballs",
+                ],
+                "answer": "The continents of the world",
+            },
+            {
+                "question": "Who is the most decorated gymnast of all time, with 37 world and Olympic medals to his/ her name?",
+                "choices": [
+                    "Serena Williams",
+                    "Venus Williams",
+                    "Simone Biles",
+                    "Jonathan Owens",
+                ],
+                "answer": "Simone Biles",
+            },
+            {
+                "question": "What was the first city to host the Olympics thrice?",
+                "choices": ["London", "Athens", "Paris", "Budapest"],
+                "answer": "London",
+            },
+        ],
+        # Level 3 Sports Questions
+        3: [
+            {
+                "question": "What ball is used in table tennis?",
+                "choices": [
+                    "Football",
+                    "tennis ball",
+                    "table tennis ball",
+                    "ping-pong",
+                    "golf ball",
+                ],
+                "answer": "table tennis ball",
+            },
+            {
+                "question": "Which athlete won the largest number of gold medals at the Olympic Games?",
+                "choices": [
+                    "Yusuf Bolt",
+                    "Usain Bolt",
+                    "Maria Sharapova",
+                    "Michael Phelps",
+                ],
+                "answer": "Michael Phelps",
+            },
+            {
+                "question": "What game is called the “sport of kings?”",
+                "choices": ["Chess", "Golf", "Cards", "Darts"],
+                "answer": "Golf",
+            },
+            {
+                "question": "Which footballer has the most Ballon D’or trophies?",
+                "choices": [
+                    "Cristiano Ronaldo",
+                    "Zinedine Zidane",
+                    "Kaka",
+                    "Lionel Messi",
+                ],
+                "answer": "Lionel Messi",
+            },
+            {
+                "question": "What is the only country to have played in every single soccer World Cup?",
+                "choices": ["Argentina", "Senegal", "Brazil", "Spain"],
+                "answer": "Brazil",
+            },
+        ],
+        # Level 4 Sports Questions
+        4: [
+            {
+                "question": "One of the following was once a coach of the Ghana Black Stars.",
+                "choices": [
+                    "Maxwell Konadu",
+                    "Sellas Tetteh",
+                    "Otto Pfister",
+                    "Ralf Zumdick",
+                ],
+                "answer": "Otto Pfister",
+            },
+            {
+                "question": "Who was elected as GFA president on Friday 25th October, 2019?",
+                "choices": [
+                    "Mustapha Ussif",
+                    "Edwin Nii Lante Vanderpuye",
+                    "Isaac Kwame Asiamah",
+                    "Kurt Edwin Simeon-Okraku",
+                ],
+                "answer": "Kurt Edwin Simeon-Okraku",
+            },
+            {
+                "question": "On which day in 2001 did Ghanaian football record a tragedy?",
+                "choices": ["April 6th", "September 30th", "May 9th", "December 31st"],
+                "answer": "May 9th",
+            },
+            {
+                "question": "Who was only the second black African who was able to break into the international skiing scene?",
+                "choices": [
+                    "Kwame Nkrumah-Acheampong",
+                    "Dede Ayew",
+                    "Abedi Pele",
+                    "General Kotoka",
+                ],
+                "answer": "Kwame Nkrumah-Acheampong",
+            },
+            {
+                "question": "Which cities were the first colonial cities in sub-Saharan Africa to host formal leagues in the Gold Coast?",
+                "choices": [
+                    "Cape Coast and Accra",
+                    "Cotonou and Abuja",
+                    "Abuja and Accra",
+                    "Cape Coast and Cotonou",
+                ],
+                "answer": "Cape Coast and Accra",
+            },
+        ],
+    },
+    # Category: Film
+    "Film": {
+        # Level 1 Film Questions
+        1: [
+            {
+                "question": "In which classic cartoon would you find the characters Tom and Jerry?",
+                "choices": [
+                    "Toys 1",
+                    "The Lady and the Tramp",
+                    "Tom and Jerry",
+                    "Cinderella",
+                ],
+                "answer": "Tom and Jerry",
+            },
+            {
+                "question": "What’s the name of the spinach-loving sailor with bulging forearms?",
+                "choices": ["Poppy", "Paapa", "Popeye", "Prapra"],
+                "answer": "Popeye",
+            },
+            {
+                "question": "Who’s the lazy cat who loves lasagna and hates Mondays?",
+                "choices": ["Kitty", "Puss in Boots", "Minnie", "Garfield"],
+                "answer": "Garfield",
+            },
+            {
+                "question": "What’s the name of the cartoon featuring the prehistoric family living in the town of Bedrock?",
+                "choices": [
+                    "The Flintstones",
+                    "Megamind",
+                    "Encanto",
+                    "Hotel Transylvania",
+                ],
+                "answer": "The Flintstones",
+            },
+            {
+                "question": "Who’s the silly and fun-loving bear who’s always ready for an adventure in the Hundred Acre Wood?",
+                "choices": ["Patrick Star", "Piglet", "Barney", "Winnie the Pooh"],
+                "answer": "Winnie the Pooh",
+            },
+        ],
+        # Level 2 Film Questions
+        2: [
+            {
+                "question": "What is the highest-grossing R-rated movie of all time?",
+                "choices": ["Spiderman", "Joker", "Superman", "Wolverine"],
+                "answer": "Joker",
+            },
+            {
+                "question": "What animated classic was the first film of the late 20th century 'Disney Renaissance?'",
+                "choices": [
+                    "Cinderella",
+                    "Sleeping Beauty",
+                    "The Little Mermaid",
+                    "Mickey Mouse",
+                ],
+                "answer": "The Little Mermaid",
+            },
+            {
+                "question": "What's the name of Charlie Chaplin's most famous, recurring character?",
+                "choices": ["The Tramp", "The Joke", "The Guy", "Charlie Himself"],
+                "answer": "The Tramp",
+            },
+            {
+                "question": "What is the highest-grossing foreign-language film at the U.S. box office?",
+                "choices": [
+                    "Life Is Beautiful",
+                    "The Intouchables",
+                    "Hero",
+                    "The Passion of Christ",
+                ],
+                "answer": "The Passion of Christ",
+            },
+            {
+                "question": "Who is the first woman of color to win the Oscar for Best Actress?",
+                "choices": [
+                    "Queen Latifah",
+                    "Keke Palmer",
+                    "Halle Berry",
+                    "Halle Bailey",
+                ],
+                "answer": "Halle Berry",
+            },
+        ],
+        # Level 3 Film Questions
+        3: [
+            {
+                "question": "What is the name of Ghana’s first independent film?",
+                "choices": [
+                    "Love Brewed in the African Pot",
+                    "Beasts of No Nation",
+                    "Aloe Vera",
+                    "Potomanto",
+                ],
+                "answer": "Love Brewed in the African Pot",
+            },
+            {
+                "question": "Who is the producer of the Ghanaian popular series, ‘YOLO’?",
+                "choices": [
+                    "Shirley Frimpong-Manso",
+                    "Ivan Quashigah",
+                    "Uncle Ebo Whyte",
+                    "Berla Mundi",
+                ],
+                "answer": "Ivan Quashigah",
+            },
+            {
+                "question": "What year did Ghana's cinema start officially known as Black Star Films?",
+                "choices": ["1948", "1957", "1923", "2012"],
+                "answer": "1923",
+            },
+            {
+                "question": "Which of the following Hollywood actors/actresses is of Ghanaian descent?",
+                "choices": [
+                    "Peter Mensah",
+                    "Nadia Buari",
+                    "Van Vicker",
+                    "Yvonne Okoro",
+                ],
+                "answer": "Peter Mensah",
+            },
+            {
+                "question": "Who played 'Agu' in the 2015 popular Ghanaian film, 'Beasts of No Nation'?",
+                "choices": ["Idris Elba", "Abraham Attah", "Kurt Egyiawan", "Kofi Adu"],
+                "answer": "Abraham Attah",
+            },
+        ],
+        # Level 4 Film Questions
+        4: [
+            {
+                "question": "What is the highest-grossing war movie of all time?",
+                "choices": ["King Kong", "Godzilla", "The Conjuring", "Oppenheimer"],
+                "answer": "Oppenheimer",
+            },
+            {
+                "question": "In what movie do you spend time in Neverland?",
+                "choices": [
+                    "Tinkerbell",
+                    "Jake and the Neverland Pirates",
+                    "The Loud House",
+                    "Peter Pan",
+                ],
+                "answer": "Peter Pan",
+            },
+            {
+                "question": "What Disney movie was nominated for 13 Academy Awards and won 5?",
+                "choices": [
+                    "The Adventures of Bullwhip Griffin",
+                    "The Fighting Prince of Donegal",
+                    "Mary Poppins",
+                    "Jungle Book",
+                ],
+                "answer": "Mary Poppins",
+            },
+            {
+                "question": "Who, in 2019, became the youngest person ever to produce a studio film?",
+                "choices": [
+                    "JoJo Siwa",
+                    "Yara Shahidi",
+                    "Bow Johnson",
+                    "Marsai Martin",
+                ],
+                "answer": "Marsai Martin",
+            },
+            {
+                "question": "Which of the following actors/actresses appeared in ‘The Greatest Showman’ and ‘Spider-Man: No Way Home’?",
+                "choices": [
+                    "Camilla Cabello",
+                    "Shawn Mendes",
+                    "Zendaya",
+                    "Chloe Bailey",
+                ],
+                "answer": "Zendaya",
+            },
+        ],
+    },
+    # Category: Current Affairs
+    "Current Affairs": {
+        # Level 1 Current Affairs Questions
+        1: [
+            {
+                "question": "The African Union has suspended which country until ‘the effective restoration of constitutional order’?",
+                "choices": ["Nigeria", "Ghana", "Niger", "Niamey"],
+                "answer": "Niger",
+            },
+            {
+                "question": "Which region is Gabon located in?",
+                "choices": ["Asia", "Europe", "America", "Africa"],
+                "answer": "Africa",
+            },
+            {
+                "question": "Which country is the Yangtze River located in?",
+                "choices": ["Japan", "Beijing", "China", "Tokyo"],
+                "answer": "China",
+            },
+            {
+                "question": "Who is the sitting president of Nigeria (as of August 2024)?",
+                "choices": [
+                    "Goodluck Jonathan",
+                    "Governor Adeleke",
+                    "Damini Ogulu",
+                    "Ahmed Bola Tinubu",
+                ],
+                "answer": "Ahmed Bola Tinubu",
+            },
+            {
+                "question": "What planet in our solar system takes the least time to orbit the sun?",
+                "choices": ["Mercury", "Saturn", "Venus", "Earth"],
+                "answer": "Mercury",
+            },
+        ],
+        2: [
+            {
+                "question": "What does NASA stand for?",
+                "choices": [
+                    "National Aeronautics and Space Administration",
+                    "National Aeronautics and Space Agency",
+                    "National Airplanes and Sports Administration",
+                    "National Aeronautics and Sports Agency",
+                ],
+                "answer": "National Aeronautics and Space Administration",
+            },
+            {
+                "question": "Which Ghanaian Fort was constructed after the Sagbadre War between the Danes and the Anlos?",
+                "choices": [
+                    "Fort Apollonia",
+                    "Fort Dorothea",
+                    "Fort Prizenstein",
+                    "Fort Orange",
+                ],
+                "answer": "Fort Prizenstein",
+            },
+            {
+                "question": "The River Nile passes through one of the following countries, except",
+                "choices": ["Uganda", "Tanzania", "Egypt", "Ethiopia"],
+                "answer": "Tanzania",
+            },
+            {
+                "question": "I am the longest river in the world.",
+                "choices": ["Nile", "Jordan", "Volta", "Yangtze"],
+                "answer": "Nile",
+            },
+            {
+                "question": "I am the richest man to ever walk the earth.",
+                "choices": [
+                    "Elon Musk",
+                    "Jeffrey Bezos",
+                    "Mansa Musa",
+                    "Osei Kwame Despite",
+                ],
+                "answer": "Mansa Musa",
+            },
+        ],
+        # Level 3 Current Affairs Questions
+        3: [
+            {
+                "question": "What does the word ‘Ghana’ mean?",
+                "choices": [
+                    "God Has Appointed Nkrumah Already",
+                    "Warrior King",
+                    "Gold Bush",
+                    "Gold Coast",
+                ],
+                "answer": "Warrior King",
+            },
+            {
+                "question": "Which group of Europeans were the first to land on the Gold Coast and in which year?",
+                "choices": [
+                    "British, 1948",
+                    "Dutch, 1471",
+                    "Portuguese, 1471",
+                    "Portuguese, 1566",
+                ],
+                "answer": "Portuguese, 1471",
+            },
+            {
+                "question": "What is the name of the woman on the 50-pesewa coin?",
+                "choices": [
+                    "Fathia Nkrumah",
+                    "Theresa Kufuor",
+                    "Mrs. Guggisberg",
+                    "Naa Dedei Ashikishan",
+                ],
+                "answer": "Naa Dedei Ashikishan",
+            },
+            {
+                "question": "One of the following is the oldest high school in Ghana.",
+                "choices": [
+                    "Presbyterian Boys’ Secondary School",
+                    "Wesley Girls’ High School",
+                    "Opoku Ware School",
+                    "Mfantsipim School",
+                ],
+                "answer": "Mfantsipim School",
+            },
+            {
+                "question": "Which of the following foreign presidents was educated at Achimota School?",
+                "choices": [
+                    "George Weah",
+                    "Robert Mugabe",
+                    "Bola Tinubu",
+                    "Vladimir Putin",
+                ],
+                "answer": "Robert Mugabe",
+            },
+        ],
+        # Level 4 Current Affairs Questions
+        4: [
+            {
+                "question": "How many years did the 100 Years War last?",
+                "choices": ["100 years", "116 years", "101 years", "130 years"],
+                "answer": "116 years",
+            },
+            {
+                "question": "What was the name of the research ship Charles Darwin traveled with?",
+                "choices": [
+                    "The Britannic",
+                    "The Olympic",
+                    "The Beagle",
+                    "The Icon of the Seas",
+                ],
+                "answer": "The Beagle",
+            },
+            {
+                "question": "How many U.S. presidents have been assassinated?",
+                "choices": ["four", "seven", "nine", "twelve"],
+                "answer": "four",
+            },
+            {
+                "question": "Which country was the first to grant women the right to vote?",
+                "choices": ["New Zealand", "United States", "Algeria", "Bangladesh"],
+                "answer": "New Zealand",
+            },
+            {
+                "question": "What year did the Titanic sink?",
+                "choices": ["1988", "1732", "1912", "1987"],
+                "answer": "1912",
+            },
+        ],
+    },
+    # Category: General Knowledge
+    "General Knowledge": {
+        # Level 1 General Knowledge Questions
+        1: [
+            {
+                "question": "What year was the United Nations established?",
+                "choices": ["1945", "1956", "1999", "3000 BC"],
+                "answer": "1945",
+            },
+            {
+                "question": "Who has won the most total Academy Awards?",
+                "choices": [
+                    "Genghis Khan",
+                    "Walt Disney",
+                    "Leonardo DiCaprio",
+                    "Angelina Jolie",
+                ],
+                "answer": "Walt Disney",
+            },
+            {
+                "question": "How many minutes are in a full week?",
+                "choices": ["3060", "7200", "720", "10,080"],
+                "answer": "10,080",
+            },
+            {
+                "question": "What city is known as 'The Eternal City'?",
+                "choices": ["Paris", "Budapest", "Rome", "London"],
+                "answer": "Rome",
+            },
+            {
+                "question": "What software company is headquartered in Redmond, Washington?",
+                "choices": ["Apple", "Meta", "Facebook", "Microsoft"],
+                "answer": "Microsoft",
+            },
+        ],
+        # Level 2 General Knowledge Questions
+        2: [
+            {
+                "question": "What is a group of crows called?",
+                "choices": ["A group", "A murder", "A streak", "A bunch"],
+                "answer": "A murder",
+            },
+            {
+                "question": "What is acrophobia a fear of?",
+                "choices": ["Spiders", "Colors", "Chickens", "Heights"],
+                "answer": "Heights",
+            },
+            {
+                "question": "In what capital would you find The Little Mermaid statue?",
+                "choices": ["Copenhagen", "Budapest", "Washington DC", "Accra"],
+                "answer": "Copenhagen",
+            },
+            {
+                "question": "What country drinks the most coffee?",
+                "choices": ["Finland", "Germany", "Greece", "Italy"],
+                "answer": "Finland",
+            },
+            {
+                "question": "Which actor played Tony Stark/Iron Man in the Marvel Cinematic Universe?",
+                "choices": [
+                    "Robert Downey Jr.",
+                    "Jack Dawson",
+                    "Leonardo DiCaprio",
+                    "Genghis Khan",
+                ],
+                "answer": "Robert Downey Jr.",
+            },
+        ],
+        # Level 3 General Knowledge Questions
+        3: [
+            {
+                "question": "Who wrote the Harry Potter book series?",
+                "choices": [
+                    "Ama Ata Aidoo",
+                    "Peggy Oppong",
+                    "Chinua Achebe",
+                    "J.K. Rowling",
+                ],
+                "answer": "J.K. Rowling",
+            },
+            {
+                "question": "What is the name of the fictional African country in Black Panther?",
+                "choices": ["Wakanda", "Berekuso", "Aburi", "Wangari"],
+                "answer": "Wakanda",
+            },
+            {
+                "question": "Who developed the theory of relativity?",
+                "choices": [
+                    "Albert Einstein",
+                    "Nikola Tesla",
+                    "Abraham Lincoln",
+                    "Isaac Watts",
+                ],
+                "answer": "Albert Einstein",
+            },
+            {
+                "question": "Which gas do plants absorb during photosynthesis?",
+                "choices": ["Carbon dioxide", "Methane", "Oxygen", "Nitrous Oxide"],
+                "answer": "Carbon dioxide",
+            },
+            {
+                "question": "Which continent is known as the 'Dark Continent'?",
+                "choices": ["Africa", "Asia", "Europe", "South America"],
+                "answer": "Africa",
+            },
+        ],
+        # Level 4 General Knowledge Questions
+        4: [
+            {
+                "question": "Who discovered penicillin?",
+                "choices": [
+                    "Pierre Curie",
+                    "J. Robert Oppenheimer",
+                    "Alexander Fleming",
+                    "Isaac Newton",
+                ],
+                "answer": "Alexander Fleming",
+            },
+            {
+                "question": "Who painted 'The Last Supper'?",
+                "choices": [
+                    "Leonardo da Vinci",
+                    "Pablo Picasso",
+                    "Van Gogh",
+                    "Okunta Kinte",
+                ],
+                "answer": "Leonardo da Vinci",
+            },
+            {
+                "question": "Who was the first man to step on the moon?",
+                "choices": ["Elon Musk", "Wright Brothers", "Gandhi", "Neil Armstrong"],
+                "answer": "Neil Armstrong",
+            },
+            {
+                "question": "What is the capital of Argentina?",
+                "choices": ["Buenos Aires", "Argentine", "La Plata", "Mendoza"],
+                "answer": "Buenos Aires",
+            },
+            {
+                "question": "Who wrote 'The Odyssey'?",
+                "choices": ["Homer", "J.K. Rowling", "Jack London", "Robert Frost"],
+                "answer": "Homer",
+            },
+        ],
+    },
+}
+
+# Read from a file called scores.txt. if it doesn't exist, create it. then read the contents and store in a variable. it stores the scores of all players
+try:
+    with open("scores.txt", "r") as f:
+        recent_scores = f.read()
+except FileNotFoundError:
+    with open("scores.txt", "w") as f:
+        f.write("")
+    recent_scores = ""
+
+player_name = ""
+
+welcome_graphics = """ 
+
+Welcome To ShellTrivia™! 
+Created by Elisa Maame Nhyira Boatemaa Okyere and Shifa Amankwa-Gabbey (Ashesi's Engineering Class of 2027)
+
+INSTRUCTIONS
+-------------
+     • There are four levels to each category
+     • In each level, there are five trivia questions with four choices
+     • Making a wrong choice takes two shells away
+     • Making a right choice rewards you with three shells
+
+    Ready for the experience?!
+    Press ENTER to start
+     """
+input(welcome_graphics)
+
+# Display the leaderboard
+print("LEADERBOARD")
+print("-----------")
+print(recent_scores)
+
+# Get the player's name
+player_name = input("Enter your name: ")
+
+# The category list
+category_list = """
+• Music   • Film    • Current Affairs 
+• Sports  • General Knowledge     
+
+    """
+print(category_list)
+
+# Category selection by user (via input)
+current_category = input(f"Hi, {player_name}. Select Your Category: ")
+
+# While loop for potentially incorrect input (no accomodations for case sensitivity)
+while (
+        current_category != "Music"
+        and current_category != "Film"
+        and current_category != "Sports"
+        and current_category != "General Knowledge"
+        and current_category != "Current Affairs"
+):
+    #
+    print("Please select a valid category")
+    current_category = input("Select Your Category: ")
+
+# Parameters Panel
+current_level = 1
+current_question_index = 0
+score = 0
+
+
+# Functions Panel
+
+# Show question
+def show_question():
+    global current_question_index
+    question_data = quiz_data[current_category][current_level][current_question_index]
+    qs_label.config(text=question_data["question"])
+    for i in range(4):
+        choice_btns[i].config(text=question_data["choices"][i], state="normal")
+
+    feedback_label.config(text="")
+    next_btn.config(state="disabled")
+
+
+# Check answer validity
+def check_answer(choice_idx):
+    global score
+    selected_choice = choice_btns[choice_idx].cget("text")
+    correct_answer = quiz_data[current_category][current_level][current_question_index][
+        "answer"
+    ]
+
+    # Conditional for right answer
+    if selected_choice == correct_answer:
+        score += 5
+        score_label.config(text=f"Score: {score}")
+        feedback_label.config(text="Bravo! +5 shells!", foreground="green")
+    # Conditional for wrong answer
+    else:
+        score -= 2
+        score_label.config(text=f"Score: {score}")
+        feedback_label.config(text=f"Un-oh! 2 shells short!", foreground="red")
+
+    # Enable the 'Next' button to move forward
+    for button in choice_btns:
+        button.config(state="disabled")
+    next_btn.config(state="normal")
+
+
+# Next Question
+def next_question():
+    global current_question_index, current_level
+    current_question_index += 1
+
+    if current_question_index < len(quiz_data[current_category][current_level]):
+        show_question()
+    else:
+        messagebox.showinfo(
+            "Quiz Completed",
+            f"{current_category} level {current_level} done! You have: {score}/{100} shells for the {current_category} category",
+        )
+        current_level += 1
+        if current_level <= 4:
+            current_question_index = 0
+            show_question()
+        else:
+            messagebox.showinfo(
+                "Quiz Completed",
+                f"Congratulations! You have completed the {current_category} category. You have: {score}/{100} shells",
+            )
+            root.destroy()
+
+            # Write the player's name and score to the scores file
+            with open("scores.txt", "a") as f:
+                f.write(f"{player_name}: {score}\n")
+
+
+# Tkinter Code
+
+root = tk.Tk()
+root.title("ShellTrivia™")
+root.geometry("600x500")
+
+# Style configuration
+style = Style(theme="flatly")
+style.configure("TLabel", font=("Times", 20))
+style.configure("TButton", font=("Times", 18))
+
+qs_label = tk.Label(root, anchor="center", wraplength=500)
+qs_label.pack(pady=10)
+
+# Choice buttons
+choice_btns = []
+for i in range(4):
+    button = tk.Button(root, command=lambda i=i: check_answer(i))
+    button.pack(pady=5)
+    choice_btns.append(button)
+
+# Feedback
+feedback_label = tk.Label(root, anchor="center")
+feedback_label.pack(pady=10)
+
+# Score
+score_label = tk.Label(root, text=f"Shells: 0/{len(quiz_data)}", anchor="center")
+score_label.pack(pady=10)
+
+# 'Next' button
+next_btn = tk.Button(root, text="Next", command=next_question, state="disabled")
+next_btn.pack(pady=10)
+
+# Function calls
+show_question()
+root.mainloop()
